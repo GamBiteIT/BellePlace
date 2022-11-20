@@ -2,16 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CommentaireResource\Pages;
-use App\Filament\Resources\CommentaireResource\RelationManagers;
-use App\Models\Commentaire;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\Commentaire;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use App\Filament\Resources\CommentaireResource\Pages;
+
 
 class CommentaireResource extends Resource
 {
@@ -33,13 +32,17 @@ class CommentaireResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('post_id')->label('Post ID'),
+                TextColumn::make('username')->label('Username'),
+                TextColumn::make('commentaire')->label('Description'),
+                TextColumn::make('created_at')->label('Created at')->datetime(),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+               
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

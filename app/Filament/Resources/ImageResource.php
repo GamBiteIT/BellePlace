@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ImageResource\Pages;
-use App\Filament\Resources\ImageResource\RelationManagers;
-use App\Models\Image;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Image;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ImageResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ImageResource\RelationManagers;
 
 class ImageResource extends Resource
 {
@@ -32,13 +33,16 @@ class ImageResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('post_id')->label('Post ID'),
+                TextColumn::make('userid')->label('User ID'),
+                TextColumn::make('image')->label('Path Of Image'),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

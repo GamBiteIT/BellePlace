@@ -2,16 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ImageOfferResource\Pages;
-use App\Filament\Resources\ImageOfferResource\RelationManagers;
-use App\Models\ImageOffer;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\ImageOffer;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use App\Filament\Resources\ImageOfferResource\Pages;
+
 
 class ImageOfferResource extends Resource
 {
@@ -32,13 +31,15 @@ class ImageOfferResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('offer_id')->label('Offer ID'),
+                TextColumn::make('partnerid')->label('Partner ID'),
+                TextColumn::make('image')->label('Path Of Image'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

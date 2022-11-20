@@ -10,8 +10,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
+
 
 class OfferResource extends Resource
 {
@@ -32,13 +32,20 @@ class OfferResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->label('Offer ID')->sortable(),
+                TextColumn::make('partnerId')->label('Partner ID')->sortable(),
+                TextColumn::make('title')->label('Title')->sortable()->searchable(),
+                TextColumn::make('location')->searchable(),
+                TextColumn::make('description')->limit(50),
+                TextColumn::make('category')->searchable()->label('Category'),
+                TextColumn::make('phone')->label('Phone'),
+                
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

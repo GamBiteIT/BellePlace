@@ -47,7 +47,7 @@ class UserResource extends Resource
                 // Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
     
