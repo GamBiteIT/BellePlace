@@ -32,21 +32,44 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','role:user'])->name('dashboard');
+Route::get('/partner/dashboard', function () {
+    return Inertia::render('Partner/Dashboard');
+})->middleware(['auth', 'verified','role:partner'])->name('partner.dashboard');
 
-Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::middleware('auth','verified','role:user')->group(function () {
+
+
+Route::get('/post/create/',[PostController::class,'create'])->middleware(['auth','verified'])->name('poster');
+
+
+Route::post('/poster',[PostController::class,'store'])->middleware(['auth','verified'])->name('poster.create');
+
+
+Route::get('/post/{post}/edit/',[PostController::class,'edit'])->middleware(['auth','verified'])->name('poster.edit');
+Route::put('/post/{post}/update/',[PostController::class,'update'])->middleware(['auth','verified'])->name('post.update');
+Route::delete('/post/{post}',[PostController::class,'destroy'])->middleware(['auth','verified'])->name('post.delete');
+
+//// Commentaires //////////////////////////////////
+
+
+
+
+
+
 });
+Route::post('/post/comm',[CommentaireController::class,'store'])->middleware(['auth','verified'])->name('commentaires.create');
+Route::get('/post/{post}',[PostController::class,'show'])->middleware(['auth','verified'])->name('post.show');
 
-require __DIR__.'/auth.php';
 
 
+Route::middleware('auth','verified','role:partner')->group(function(){
 
-Route::get('/img/{path}',[ImagesController::class,'show'])->where('path', '.*')
-->name('image');
-Route::get('/partner/create',[PartnerController::class,'create']);
+    Route::get('/partner/create',[PartnerController::class,'create']);
 Route::post('/partner/create',[PartnerController::class,'store'])->name('partner.create');
 Route::get('partner/profile/{partner}/',[PartnerController::class,'show'])->name('partner.profile');
 Route::get('partner/profile/{partner}/edit',[PartnerController::class,'edit'])->name('partner.profile.edit');
@@ -56,10 +79,19 @@ Route::put('partner/profile/{partner}/update',[PartnerController::class,'update'
 
 Route::get('/offer',[OfferController::class,'create'])->name('offer')->middleware('auth');
 Route::post('/offer/create',[OfferController::class,'store'])->name('offers.create');
-Route::get('/offer/{offer}',[OfferController::class,'show'])->name('offer.show');
+
 Route::get('/offer/{offer}/edit/',[OfferController::class,'edit'])->name('offer.edit');
 Route::put('/offer/{offer}/update',[OfferController::class,'update'])->name('offer.update');
 Route::delete('/offer/{offer}',[OfferController::class,'destroy'])->name('offer.delete');
+
+});
+
+require __DIR__.'/auth.php';
+Route::get('/offer/{offer}',[OfferController::class,'show'])->name('offer.show')->middleware('role:user');
+
+
+Route::get('/img/{path}',[ImagesController::class,'show'])->where('path', '.*')
+->name('image');
 
 
 
@@ -74,23 +106,6 @@ require __DIR__.'/auth.php';
 
 
 // Posts ////
-
-Route::get('/post/create/',[PostController::class,'create'])->middleware(['auth','verified'])->name('poster');
-
-
-Route::post('/poster',[PostController::class,'store'])->middleware(['auth','verified'])->name('poster.create');
-
-Route::get('/post/{post}',[PostController::class,'show'])->middleware(['auth','verified'])->name('post.show');
-Route::get('/post/{post}/edit/',[PostController::class,'edit'])->middleware(['auth','verified'])->name('poster.edit');
-Route::put('/post/{post}/update/',[PostController::class,'update'])->middleware(['auth','verified'])->name('post.update');
-Route::delete('/post/{post}',[PostController::class,'destroy'])->middleware(['auth','verified'])->name('post.delete');
-
-//// Commentaires //////////////////////////////////
-
-Route::post('/post/comm',[CommentaireController::class,'store'])->middleware(['auth','verified'])->name('commentaires.create');
-
-
-
 
 
 

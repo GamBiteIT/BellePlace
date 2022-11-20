@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\Permission\Models\Role;
 
 class PartnerController extends Controller
 {
@@ -57,6 +58,8 @@ class PartnerController extends Controller
             'phone'=> $request->phone,
            
         ]);
+        // auth()->user()->assignRole('partner');
+        return redirect()->route('dashboard');
     }
 
     /**

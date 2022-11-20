@@ -34,7 +34,7 @@ class PartnerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('Partner ID'),
-                Tables\Columns\TextColumn::make('user_id')->label('User ID'),
+                Tables\Columns\TextColumn::make('user.username')->label('User ID'),
                 Tables\Columns\TextColumn::make('email')->label('Email'),
                 Tables\Columns\TextColumn::make('phone')->label('Phone'),
                 Tables\Columns\TextColumn::make('location')->label('Location'),
