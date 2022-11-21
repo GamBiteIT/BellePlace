@@ -48,7 +48,13 @@ touch database/database.sqlite
 Run database migrations:
 
 ```sh
-php artisan migrate
+php artisan migrate --seed
+```
+
+Create Admin User Run this command:
+
+```sh
+php artisan make:filament-user
 ```
 
 
