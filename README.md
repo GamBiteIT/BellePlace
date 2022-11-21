@@ -55,6 +55,7 @@ Create Admin User Run this command:
 
 ```sh
 php artisan make:filament-user
+email = admin@admin.com
 ```
 
 
