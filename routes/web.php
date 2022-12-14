@@ -30,9 +30,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified','role:user'])->name('dashboard');
+Route::get('/dashboard', [PostController::class,'index'])->middleware(['auth', 'verified','role:user'])->name('dashboard');
 Route::get('/partner/dashboard', function () {
     return Inertia::render('Partner/Dashboard');
 })->middleware(['auth', 'verified','role:partner'])->name('partner.dashboard');

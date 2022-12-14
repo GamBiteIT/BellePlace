@@ -22,7 +22,7 @@ class PostController extends Controller
     {
 
 
-        return Inertia::render('Posts/Index',[
+        return Inertia::render('Dashboard',[
             'filters' => $request->all('search', 'trashed'),
             'posts' => Post::orderBy('created_at','desc')->filter($request->only('search'))->paginate(10)->withQueryString()->through(fn($post)=>[
                 'username'=>$post->user(),
